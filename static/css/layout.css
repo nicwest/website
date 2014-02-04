@@ -126,3 +126,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 
 .small-text {font-size: 75%;}
 .small-top {margin-top: 10px;}
+
+.expert {font-size: 20px}
+.expert-top {margin-top: 20px;}
+
+.ifprint {display:none}
+.ifnotprint-white {color: #FFF !important;}
