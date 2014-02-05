@@ -1,1 +1,1 @@
-web: gunicorn nic-west:app
+web: gunicorn nicwest:app
