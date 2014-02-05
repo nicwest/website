@@ -2,7 +2,7 @@ __author__ = 'nic'
 
 from nicwest import db
 
-ROW_TYPES = {}
+__all__ = ['CV', 'Item', 'Category']
 
 cvitem = db.Table('cvitem',
     db.Column('cv_id', db.Integer, db.ForeignKey('cv.id')),
@@ -22,6 +22,7 @@ class CV (db.Model):
     categories = db.relationship('Category', backref='cv', secondary=cvcategory, lazy='dynamic')
     updated = db.Column(db.DateTime)
 
+
 class Item (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     typ = db.Column(db.String(200), nullable=False)
@@ -34,11 +35,12 @@ class Item (db.Model):
     order = db.Column(db.Integer)
     category = db.Column(db.Integer, db.ForeignKey('category.id'))
 
+
 class Category (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
     key = db.Column(db.String(50))
     subtitle = db.Column(db.String(200))
     icon = db.Column(db.String(200))
-    items = db.relationship('Item', backref='category', lazy='dynamic')
+    items = db.relationship('Item', backref='cat', lazy='dynamic')
     order = db.Column(db.Integer)
