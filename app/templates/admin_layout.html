@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="block-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav nav-pills">
+                      <li{% if section == 'dash' %} class="active"{% endif %}><a href="#"><i class="fa fa-tachometer fa-fw"></i> Dashboard</a></li>
+                      <li class="dropdown{% if section == 'cv' %} active{% endif %}">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                          <i class="fa fa-magic fa-fw"></i> CV <span class="caret"></span>
+                        </a>
+                          <ul class="dropdown-menu">
+                              <li><a href="#">Browse</a></li>
+                              <li><a href="#">New</a></li>
+                              <li><a href="#">Items</a></li>
+                              <li><a href="#">Categories</a></li>
+                          </ul>
+                      </li>
+                      <li class="disabled{% if section == 'blog' %} active{% endif %}"><a href="#"><i class="fa fa-clock-o fa-fw"></i> Blog</a></li>
+                      <li class="disabled{% if section == 'settings' %} active{% endif %}"><a href="#"><i class="fa fa-gears fa-fw"></i> Settings</a></li>
+                      <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Log out</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            {% block admin_content %}
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

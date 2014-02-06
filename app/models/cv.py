@@ -1,6 +1,6 @@
 __author__ = 'nic'
 
-from nicwest import db
+from app import db
 
 __all__ = ['CV', 'Item', 'Category']
 
@@ -14,6 +14,7 @@ cvcategory = db.Table('cvcategory',
 )
 
 class CV (db.Model):
+    __tablename__ = 'cv'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     slug = db.Column(db.String(200), nullable=False, unique=True)
@@ -24,6 +25,8 @@ class CV (db.Model):
 
 
 class Item (db.Model):
+
+    __tablename__ = 'item'
     id = db.Column(db.Integer, primary_key=True)
     typ = db.Column(db.String(200), nullable=False)
     key = db.Column(db.String(200))
@@ -37,6 +40,8 @@ class Item (db.Model):
 
 
 class Category (db.Model):
+
+    __tablename__ = 'category'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200))
     key = db.Column(db.String(50))

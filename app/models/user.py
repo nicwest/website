@@ -1,5 +1,5 @@
 __author__ = 'nic'
-from nicwest import db
+from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 __all__ = ['User', 'ROLE_GUEST', 'ROLE_USER', 'ROLE_MODERATOR', 'ROLE_ADMIN']
