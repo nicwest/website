@@ -11,10 +11,9 @@
                           <i class="fa fa-magic fa-fw"></i> CV <span class="caret"></span>
                         </a>
                           <ul class="dropdown-menu">
-                              <li><a href="#">Browse</a></li>
-                              <li><a href="#">New</a></li>
-                              <li><a href="#">Items</a></li>
-                              <li><a href="#">Categories</a></li>
+                              <li><a href="{{ url_for('admin_cv_browse') }}">Browse</a></li>
+                              <li><a href="{{ url_for('admin_cv_new') }}">New</a></li>
+                              <li><a href="{{ url_for('admin_cv_categories') }}">Categories</a></li>
                           </ul>
                       </li>
                       <li class="disabled{% if section == 'blog' %} active{% endif %}"><a href="#"><i class="fa fa-clock-o fa-fw"></i> Blog</a></li>
