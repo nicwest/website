@@ -10,9 +10,4 @@ app.config.from_object('config')
 #open db conection
 db = SQLAlchemy(app)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
+from app import models, views

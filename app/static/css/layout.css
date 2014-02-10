@@ -132,3 +132,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 
 .ifprint {display:none}
 .ifnotprint-white {color: #FFF !important;}
+
+.nav-pills {font-family: 'FF-ENZO-WEB'; font-weight: normal;}
+
+.table-td-small {width: 20px;}
