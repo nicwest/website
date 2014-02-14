@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+{% set footnote_marks = ['*', '†', '‡', '§', '¶', '**', '††', '‡‡', '§§', '¶¶'] %}
+{% block title %}CV - {{ cv.title }}{% endblock %}
+{% block content %}
+<div class="header"></div>
+  <div class="title-block">
+      <h1>Nic West</h1>
+      <h2>Curriculum vitae</h2>
+      <h5>{{ cv.updated }}</h5>
+  </div>
+
+  <div class="formats">
+      <a href="#" data-toggle="tooltip" data-placement="left" title="Print Black & White" rel="tooltip">
+          <i class="fa fa-print"></i>
+          <div class="print-black-white"></div>
+      </a>
+
+      <a href="#" data-toggle="tooltip" data-placement="left" title="Print Colour" rel="tooltip">
+          <i class="fa fa-print"></i>
+          <div class="print-color"></div>
+      </a>
+
+      <a href="#" data-toggle="tooltip" data-placement="left" title="Download (PDF) Black & White" rel="tooltip">
+          <i class="fa fa-download"></i>
+          <div class="print-black-white"></div>
+      </a>
+      <a href="#" data-toggle="tooltip" data-placement="left" title="Download (PDF) Colour" rel="tooltip">
+          <i class="fa fa-download"></i>
+          <div class="print-color"></div>
+      </a>
+  </div>
+
+{% for item in items recursive %}
+    {% if item.typ == "category" -%}
+        <div class="{% if loop.index is divisibleby 2 %}block-blue{% else %}block-white{% endif %}">
+                <div class="container">
+                    {% if item.icon or item.value %}
+                    <h2 class="center">
+                    {% if item.icon %}
+                        <i class="fa {{ item.icon }}"></i>
+                    {% endif %}
+                    {% if item.icon and item.value %}
+                        <br/>
+                    {% endif %}
+                    {% if item.value %}
+                        {{ item.value }}
+                    {% endif %}
+                    </h2>
+                    {% endif %}
+                    {% if item.note %}
+                        <div class="row center">
+                            <div class="col-md-12">
+                                {{ item.note|safe }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if item.children %}
+                        {{ loop(item.children) }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {%- endif -%}
+
+    {%- if item.typ == "subheader" -%}
+        <div class="row top">
+            <div class="col-md-2 col-sm-12 col-xs-12 desc-cell"><h3>{{ item.value }}</h3></div>
+            <div class="col-md-10 col-sm-12 col-xs-12">
+                {% if item.children %}
+                    {{ loop(item.children) }}
+                {% endif %}
+            </div>
+        </div>
+        {% set fn = {'value': '', 'count': 0} %}
+        {%- for item_child in item.children -%}
+            {%- if item_child.note -%}
+                {%- if fn.update({'value': fn.value + "<br />" + footnote_marks[fn.count] + item_child.note, 'count': fn.count + 1}) -%}{%- endif -%}
+            {%- endif -%}
+        {%- endfor -%}
+        {%- if fn.count -%}
+        <div class="row small-top">
+            <div class="col-md-2"></div>
+            <div class="col-md-10 col-xs-12 center small-text">
+                {{ fn.value|safe }}
+            </div>
+        </div>
+        {%- endif -%}
+    {%- endif -%}
+
+    {%- if item.typ == "single-left" -%}
+            {{ item.value }}
+    {%- endif -%}
+
+    {%- if item.typ == "period" -%}
+        <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-3 desc-cell">{{ item.key }}</div>
+            <div class="col-md-9 col-sm-9 col-xs-9">{{ item.value|safe }}</div>
+        </div>
+    {%- endif -%}
+
+    {%- if item.typ == "bar" -%}
+        {% if loop.index is not divisibleby 2 %}
+        <div class="row">
+        {% endif %}
+            <div class="col-sm-6 col-xs-6">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-12">{{ item.key }}</div>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="skill-bar-main skill-wd-{{ item.value }}"></div><div class="skill-bar-empty skill-wd-{{ 10-item.value|int }}"></div>
+                        <div class="skill-number">{{ item.value }}</div>
+                    </div>
+                </div>
+            </div>
+        {% if loop.last or loop.index is divisibleby 2  %}
+        </div>
+        {% endif %}
+    {%- endif -%}
+
+    {%- if item.typ == "list-icon" -%}
+        <div class="row top">
+            <div class="col-md-12">
+                <ul class="fa-ul">
+                    {% if item.children %}
+                        {{ loop(item.children) }}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    {%- endif -%}
+
+    {%- if item.typ == "list-icon-item" -%}
+        <li{% if not loop.first %} class="expert-top"{% endif %}>
+            <i class="fa-li fa {{ item.icon }} expert"></i>
+            <strong>{{ item.key }};</strong>
+            {{ item.value|safe }}
+        </li>
+    {%- endif %}
+{% endfor %}
+{% endblock %}

@@ -1,51 +1,65 @@
 __author__ = 'nic'
 
 from app import db
+import datetime
 
 __all__ = ['CV', 'Item', 'Category']
 
-cvitem = db.Table('cvitem',
-    db.Column('cv_id', db.Integer, db.ForeignKey('cv.id')),
-    db.Column('item_id', db.Integer, db.ForeignKey('item.id')),
-)
-cvcategory = db.Table('cvcategory',
-    db.Column('cv_id', db.Integer, db.ForeignKey('cv.id')),
-    db.Column('category_id', db.Integer, db.ForeignKey('category.id')),
-)
 
 class CV (db.Model):
     __tablename__ = 'cv'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     slug = db.Column(db.String(200), nullable=False, unique=True)
-    overview = db.Column(db.Text)
-    items = db.relationship('Item', backref='cv', secondary=cvitem, lazy='dynamic')
-    categories = db.relationship('Category', backref='cv', secondary=cvcategory, lazy='dynamic')
+    items = db.relationship('CVItem', backref='cv', lazy='dynamic')
     updated = db.Column(db.DateTime)
 
+    def __init__ (self, title, slug):
+        self.title = title
+        self.slug = slug
+        self.updated = datetime.datetime.now()
+
+    def __repr__(self):
+        return "<CV %r:%r>" % (self.id, self.title)
 
 class Item (db.Model):
-
     __tablename__ = 'item'
     id = db.Column(db.Integer, primary_key=True)
+    children = db.relationship('Item', backref=db.backref('parent', remote_side=[id]))
+    cvs = db.relationship('CVItem', backref='item', lazy='dynamic')
+    parent_id = db.Column(db.Integer, db.ForeignKey('item.id'))
     typ = db.Column(db.String(200), nullable=False)
-    key = db.Column(db.String(200))
-    title = db.Column(db.String(200))
+    key = db.Column(db.Text, nullable=True)
     value = db.Column(db.Text)
-    single = db.Column(db.Boolean, default=False)
-    footnote = db.Column(db.Text, nullable=True)
-    icon = db.Column(db.String(200))
-    order = db.Column(db.Integer)
-    category = db.Column(db.Integer, db.ForeignKey('category.id'))
+    admin_title = db.Column(db.String(200), nullable=False)
+    note = db.Column(db.Text, nullable=True)
+    icon = db.Column(db.String(200), nullable=True)
+    default_order = db.Column(db.Integer)
 
+    def __init__(self, typ, value, admin_title, default_order=0, key=None, note=None, icon=None, parent=None):
+        self.typ = typ
+        self.value = value
+        self.admin_title = admin_title
+        self.key = key
+        self.note = note
+        self.icon = icon
+        self.parent = parent
+        self.default_order = default_order
 
-class Category (db.Model):
+    def __repr__(self):
+        return "<Item %r:%r>" % (self.id, self.admin_title)
 
-    __tablename__ = 'category'
+class CVItem (db.Model):
+    __tablename__ = 'cvitems'
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200))
-    key = db.Column(db.String(50))
-    subtitle = db.Column(db.String(200))
-    icon = db.Column(db.String(200))
-    items = db.relationship('Item', backref='cat', lazy='dynamic')
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'))
+    cv_id = db.Column(db.Integer, db.ForeignKey('cv.id'))
     order = db.Column(db.Integer)
+    all_children = db.Column(db.Boolean, default=False)
+
+    def __init__ (self, cv, item, order, all_children=False):
+        self.cv = cv
+        self.item = item
+        self.order = order
+        self.all_children = all_children
+
