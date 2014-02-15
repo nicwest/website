@@ -1,4 +1,11 @@
 {% extends "layout.html" %}
+{% block additional_js %}
+    {{ super() }}
+    <!-- WYSIWYG -->
+    <script src="{{ url_for('static', filename='js/bootstrap-wysiwyg.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.hotkeys.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/editor-toolbar.js') }}"></script>
+{% endblock %}
 {% block content %}
     <div class="block-white">
         <div class="container">
@@ -13,13 +20,18 @@
                           <ul class="dropdown-menu">
                               <li><a href="{{ url_for('admin_cv_browse') }}">Browse</a></li>
                               <li><a href="{{ url_for('admin_cv_new') }}">New</a></li>
-                              <li><a href="{{ url_for('admin_cv_categories') }}">Categories</a></li>
+                              <li><a href="{{ url_for('admin_cv_items') }}">Items</a></li>
                           </ul>
                       </li>
                       <li class="disabled{% if section == 'blog' %} active{% endif %}"><a href="#"><i class="fa fa-clock-o fa-fw"></i> Blog</a></li>
                       <li class="disabled{% if section == 'settings' %} active{% endif %}"><a href="#"><i class="fa fa-gears fa-fw"></i> Settings</a></li>
                       <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Log out</a></li>
                     </ul>
+                </div>
+            </div>
+            <div class="row top">
+                <div class="col-xs-12">
+                    <a href="{{ url_for('admin')}}">Admin</a>{% block admin_bread_crumb %}{% endblock %}
                 </div>
             </div>
 

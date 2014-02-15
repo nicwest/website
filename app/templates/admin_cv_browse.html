@@ -1,9 +1,10 @@
 {% extends "admin_layout.html" %}
 
+{% block admin_bread_crumb %} >> CV{% endblock %}
 {% block admin_content %}
 <div class="row top">
     <div class="col-md-12">
-        <table class="table table-hover">
+        <table class="table table-striped table-hover">
         <thead>
             <tr>
                 <th>#</th>
@@ -21,8 +22,8 @@
                     <td>{{ cv.title }}</td>
                     <td>{{ cv.slug }}</td>
                     <td>{{ cv.updated }}</td>
-                    <td><a href="{{ url_for('admin_cv_edit', {'id': cv.id}) }}"><i class="fa fa-edit"></i></a></td>
-                    <td><a href="{{ url_for('admin_cv_delete', {'id': cv.id}) }}"><i class="fa fa-trash-o"></i></a></td>
+                    <td><a href="{{ url_for('admin_cv_edit', id=cv.id) }}"><i class="fa fa-edit"></i></a></td>
+                    <td><a href="{{ url_for('admin_cv_delete', id=cv.id) }}"><i class="fa fa-trash-o"></i></a></td>
                 </tr>
             {% endfor %}
         </tbody>

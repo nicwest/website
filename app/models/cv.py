@@ -5,7 +5,6 @@ import datetime
 
 __all__ = ['CV', 'Item', 'Category']
 
-
 class CV (db.Model):
     __tablename__ = 'cv'
     id = db.Column(db.Integer, primary_key=True)

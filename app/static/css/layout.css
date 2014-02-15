@@ -136,3 +136,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 .nav-pills {font-family: 'FF-ENZO-WEB'; font-weight: normal;}
 
 .table-td-small {width: 20px;}
+
+.editor {
+    overflow:auto; max-height:300px; height:200px;
+}
+.editor-toolbar {}
+.editor-toolbar a {font-size: 12px;}
+
+.editor-toolbar .btn-info {background: #014673; color: #FFF; border-color: #015d92;}
+.editor-toolbar .btn-info  {color: #FFF;}
+.editor-toolbar .btn-group {margin-left: 10px; margin-bottom: 5px;}
+.editor-toolbar .btn-group:first-child {margin-left: 5px;}

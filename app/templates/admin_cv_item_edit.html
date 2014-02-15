@@ -1,0 +1,67 @@
+{% extends "admin_layout.html" %}
+{% block admin_bread_crumb %} >> <a href="{{ url_for('admin_cv_browse') }}">CV</a> >> <a href="{{ url_for('admin_cv_items') }}">Items</a> >> Edit{% endblock %}
+{% block admin_content %}
+
+    <h2>Edit Item:</h2>
+<form action="" method="post" name="login" role="form" class="form-horizontal">
+
+
+    {{form.hidden_tag()}}
+    <div class="form-group">
+        <label for="parent" class="col-sm-2 control-label">Admin Title</label>
+        <div class="col-sm-10">
+            {{form.admin_title(class='form-control')}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="parent" class="col-sm-2 control-label">Format</label>
+        <div class="col-sm-10">
+            {{form.typ( class='form-control')}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="parent" class="col-sm-2 control-label">Parent</label>
+        <div class="col-sm-10">
+            {{form.parent(class='form-control')}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="parent" class="col-sm-2 control-label">Key/Title</label>
+        <div class="col-sm-10">
+            {{form.key( class='form-control')}}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="parent" class="col-sm-2 control-label">Value</label>
+
+        <div class="col-sm-10">
+        {% set editor_target = '#value' %}
+        {% set editor_full = False %}
+        {% include "editor_toolbar.html" %}
+            <div id="value" class="form-control editor">{{ form.value.data|safe }}</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="parent" class="col-sm-2 control-label">Note</label>
+        <div class="col-sm-10">
+            {{form.note(class='form-control')}}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-lg btn-primary btn-block"><i class="fa fa-save"></i> Save</button>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block additional_js%}
+    {{ super() }}
+    <!-- Item Edit Fu -->
+    <script>
+        $(document).ready(function () {
+            $('#value').wysiwyg();
+        });
+    </script>
+{% endblock %}
