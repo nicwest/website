@@ -1,13 +1,19 @@
 {% extends "admin_layout.html" %}
+{% block addtional_js %}
+    {{ super() }}
+    <!-- Ordering Thing -->
+    <script src="{{ url_for('static', filename='js/order.js') }}"></script>
+{% endblock %}
 {% block admin_bread_crumb %} >> <a href="{{ url_for('admin_cv_browse') }}">CV</a> >> Items{% endblock %}
 {% block admin_content %}
 <div class="row">
     <div class="col-md-12">
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover ordering">
         <thead>
             <tr>
-                <th>#</th>
                 <th>title</th>
+                <th>value</th>
+                <th class="table-td-small" colspan="2">order</th>
                 <th class="table-td-small"><i class="fa fa-edit"></i></th>
                 <th class="table-td-small"><i class="fa fa-trash-o"></i></th>
             </tr>
@@ -15,9 +21,11 @@
 
         <tbody>
             {% for item in items recursive %}
-                <tr{% if item.typ == "category" %} class="info"{% elif item.typ == "subheader" %} class="success"{% endif %}>
-                    <td>{{ item.id }}</td>
+                <tr{% if item.typ == "category" %} class="info"{% elif item.typ == "subheader" %} class="success"{% endif %} data-default-order="{{ item.default_order }}">
                     <td>{{ item.admin_title }}</td>
+                    <td>{{ item.key }} - {{ item.value|striptags|truncate }}</td>
+                    <td><a class="orderup" href="{{ url_for('admin_ajax', id=item.id, func="orderup") }}"><i class="fa fa-arrow-up"></i></a></td>
+                    <td><a class="orderdown" href="{{ url_for('admin_ajax', id=item.id, func="orderdown") }}"><i class="fa fa-arrow-down"></i></a></td>
                     <td><a href="{{ url_for('admin_cv_item_edit', id=item.id) }}"><i class="fa fa-edit"></i></a></td>
                     <td><a href="{{ url_for('admin_cv_item_delete', id=item.id) }}"><i class="fa fa-trash-o"></i></a></td>
                 </tr>

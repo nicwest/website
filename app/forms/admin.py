@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import TextField, TextAreaField, BooleanField, PasswordField, SelectField, validators
+from wtforms import TextField, TextAreaField, BooleanField, PasswordField, SelectField, validators, HiddenField
 from wtforms.validators import Required
 from app import db, models
 
@@ -17,3 +17,10 @@ class Item(Form):
     value = TextAreaField('overview', validators=[Required()])
     admin_title = TextField('title', validators=[Required()])
     note =  TextAreaField('overview', validators=[Required()])
+
+class Post(Form):
+    title = TextField('title', validators=[Required()])
+    slug = TextField('slug', validators=[Required()])
+    tags = TextField('tags')
+    body = HiddenField('body')
+    date = TextField('date', validators=[Required()])

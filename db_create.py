@@ -3,7 +3,7 @@ import datetime
 
 #drop previous database (uncomment for testing)
 print "Dropping previous tables..."
-db.drop_all()
+#db.drop_all()
 
 #create tables
 print "Creating tables from models..."
