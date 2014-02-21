@@ -58,6 +58,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 .block-white a, .block-white a:visited{color: #014673; text-decoration: none;}
 .block-white a:hover {color: #0171AD; text-decoration: underline;}
 
+.kill-padding, .kill-padding > div.container {padding-top: 10px; padding-bottom: 10px;}
+.blog-header { min-height: 100px; min-width: 100px; border-radius: 100%;}
+
 .desc-cell {vertical-align: top;}
 .desc-cell h3 {margin:0;}
 
@@ -147,3 +150,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', e
 .editor-toolbar .btn-info  {color: #FFF;}
 .editor-toolbar .btn-group {margin-left: 10px; margin-bottom: 5px;}
 .editor-toolbar .btn-group:first-child {margin-left: 5px;}
+
+.circle-limit {max-width: 120px; border: 2px solid #FFF;}
+.margin-zero {margin: 0;}
+
+.header-h {font-size: 20px;}
